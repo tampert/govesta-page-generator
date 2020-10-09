@@ -1,0 +1,136 @@
+[
+    {
+      "id": 1,
+      "name": "article",
+      "props" : [{
+        "name" : "title",
+        "value" : "title value",
+        "type" : "text"
+      },{
+        "name": "subTitle", 
+        "value" : "subTitle value",
+        "type" : "text"
+      }]
+    },
+    {
+      "id": 2,
+      "name": "banner",
+      "props" : [{
+        "name" : "image",
+        "value" : "image string",
+        "type" : "text"
+      },{
+        "name": "title", 
+        "value" : "subTitle value",
+        "type" : "text"
+      },{
+        "name": "smallText", 
+        "value" : "smallText value",
+        "type" : "text"
+      },{
+        "name": "description", 
+        "value" : "description value",
+        "type" : "text"
+      },{
+        "name": "linkText", 
+        "value" : "linkText value",
+        "type" : "text"
+      },{
+        "name": "link", 
+        "value" : "link value",
+        "type" : "text"
+      },{
+        "name": "bigText", 
+        "value" : "bigText value",
+        "type" : "text"
+      },{
+        "name": "linkAs", 
+        "value" : "linkAs value",
+        "type" : "text"
+      },{
+        "name": "full", 
+        "value" : "full value",
+        "type" : "text"
+      },{
+        "name": "dark", 
+        "value" : "subTitle value",
+        "type" : "text"
+      }]
+    },
+    {
+      "id": 3,
+      "name": "carousel-wrapper"
+    },
+    {
+      "id": 4,
+      "name": "city-details"
+    },
+    {
+      "id": 5,
+      "name": "country"
+    },
+    {
+      "id": 6,
+      "name": "districts"
+    },
+    {
+      "id": 7,
+      "name": "filter-card"
+    },
+    {
+      "id": 8,
+      "name": "full-card"
+    },
+    {
+      "id": 9,
+      "name": "grid-gallery"
+    },
+    {
+      "id": 10,
+      "name": "help"
+    },
+    {
+      "id": 11,
+      "name": "hero"
+    },
+    {
+      "id": 12,
+      "name": "lightbox-gallery"
+    },
+    {
+      "id": 13,
+      "name": "locations"
+    },
+    {
+      "id": 14,
+      "name": "logo"
+    },
+    {
+      "id": 15,
+      "name": "popular-city"
+    },
+    {
+      "id": 16,
+      "name": "popular-country"
+    },
+    {
+      "id": 17,
+      "name": "property-details"
+    },
+    {
+      "id": 18,
+      "name": "property-types"
+    },
+    {
+      "id": 19,
+      "name": "search"
+    },
+    {
+      "id": 20,
+      "name": "seo"
+    },
+    {
+      "id": 21,
+      "name": "subscribe"
+    }
+]
