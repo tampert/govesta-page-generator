@@ -1,9 +1,12 @@
 import React, {MouseEvent,useState, useEffect} from 'react';
 import './App.css';
 // import 'normalize.css'
-// import {Button} from 'react-bootstrap';
 import {Container, Row, Col, Form, Button } from 'react-bootstrap';
 import modulesData from './fixtures/modules.json'
+
+
+// service
+import { http } from './util/http';
 
 // Components
 // import * as UI from 'govesta-ui';
@@ -15,12 +18,34 @@ const UI = require('govesta-ui');
 //   props: any;
 // }
 
+interface Todo {
+  userId: number;
+  id: number;
+  title: string;
+  completed: boolean;
+}
+
 function App() {
-  
+
+  // const loadPopularCities = async () => {
+  //   let response ;
+  //   try {
+  //     response = await http<any[]>("https://api.govesta.co/api/v1/geo/popular?type=city&limit=10");
+  //   } catch {
+  //     response = [];
+  //   } finally {
+  //     console.log(response);
+  //     setPopularCities(response.parsedBody.data);
+  //   }
+  // }
   // modules + Settings
   const [currentModule, setCurrentModule] = useState<string>('');
   const [selectedModules, setSeletedModules] = useState<any>([]);
 
+   // API calls
+  const [popularCities, setPopularCities] = useState<any>([
+    {}, {}, {}, {}, {}
+  ]);
 
   // Form events
   const onModuleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,13 +59,34 @@ function App() {
     setSeletedModules([...selectedModules, newModule])
   }
 
+  // const loadPopularCities = async () => {
+  //   let popularCities;
+
+  //   await fetch("https://api.govesta.co/api/v1/geo/popular?type=city&limit=10")
+  //   .then(res => res.json())
+  //   .then(
+  //     (result) => {
+  //       popularCities = result.data
+  //       setPopularCities(popularCities);
+  //     },
+  //     (error) => {
+  //       popularCities = [];
+  //     }
+  //   )
+  // }
+
 
   // useEffects
   useEffect(()=>{
     console.log('use effect')
     // set currentModule
     setCurrentModule(modulesData[0].name)
+    // loadPopularCities();
   },[])
+
+  useEffect(()=>{
+    console.log(popularCities)
+  },[popularCities])
 
   return (
     <Container className="App" fluid>
