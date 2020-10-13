@@ -1,7 +1,7 @@
 import React, {MouseEvent,useState, useEffect} from 'react';
 import './App.css';
 // import 'normalize.css'
-import {Container, Row, Col, Form, Button } from 'react-bootstrap';
+import {Container, Row, Col, Form, Button, ListGroup } from 'react-bootstrap';
 import modulesData from './fixtures/modules.json'
 
 
@@ -25,19 +25,39 @@ interface Todo {
   completed: boolean;
 }
 
+// interface Data {
+//   country: object;
+//   country_id: number;
+//   description?: array;
+//   featured_image_id: number;
+//   id: number;
+//   image: object;
+//   latitude: null;
+//   longitude: null;
+//   name: string;
+//   property_published_count: number;
+//   slug: string;
+//   state: object;
+//   state_id: number;
+//   status: number;
+//   translations: array;
+// }
+
+
+
 function App() {
 
-  // const loadPopularCities = async () => {
-  //   let response ;
-  //   try {
-  //     response = await http<any[]>("https://api.govesta.co/api/v1/geo/popular?type=city&limit=10");
-  //   } catch {
-  //     response = [];
-  //   } finally {
-  //     console.log(response);
-  //     setPopularCities(response.parsedBody.data);
-  //   }
-  // }
+  const loadPopularCities = async () => {
+    let response ;
+    try {
+      response = await http("https://api.govesta.co/api/v1/geo/popular?type=city&limit=10");
+    } catch {
+      response = [];
+    } finally {
+      console.log(response.data);
+      setPopularCities(response.data);
+    }
+  }
   // modules + Settings
   const [currentModule, setCurrentModule] = useState<string>('');
   const [selectedModules, setSeletedModules] = useState<any>([]);
@@ -55,8 +75,15 @@ function App() {
   const selectModule = (event: MouseEvent<HTMLButtonElement>) =>{
     event.preventDefault();
     const newModule:any = modulesData.find((item) => item.name === currentModule)
-    console.log(newModule)
     setSeletedModules([...selectedModules, newModule])
+  }
+
+  const onDeleteModule = (id:any) => {
+    setSeletedModules((prevSelectedModules:any) => {
+      return (
+        [...prevSelectedModules].filter((_, i) => i !== id.key)
+      )
+    })
   }
 
   // const loadPopularCities = async () => {
@@ -81,7 +108,7 @@ function App() {
     console.log('use effect')
     // set currentModule
     setCurrentModule(modulesData[0].name)
-    // loadPopularCities();
+    loadPopularCities();
   },[])
 
   useEffect(()=>{
@@ -107,17 +134,44 @@ function App() {
              <Button onClick={selectModule}>add</Button>
             </Col>
           </Form.Group>
+          <ListGroup>
+              {selectedModules && selectedModules.map((module:any, key:number) =>{
+              return (
+                <ListGroup.Item key={key}>
+                <Row>
+                  <Col>{module.name}</Col>
+                  <Col className="text-right">
+                    <Button variant="primary" className="close" aria-label="Close" size="sm" onClick={() =>{onDeleteModule({key})}}>
+                      <span aria-hidden="true">&times;</span>
+                    </Button>
+                  </Col>
+                </Row>
+                    {module.props &&  module.props.map((prop:any, i:number) => {
+                      return (
+                        <Row key={i}>
+                          <Col>{prop.name}</Col>
+                          <Col><Form.Control type={prop.type} placeholder="" defaultValue={prop.value} /></Col>
+                        </Row>
+                      )
+                    })}
+                <Row>
+                  <Col className="text-right"><Button variant="primary" size="sm">Add</Button></Col>
+                </Row>
+                </ListGroup.Item>
+              )
+            })}
+              </ListGroup>
         </Form>
         </Col>
         <Col sm="8">
         the preview 
-        <UI.BannerModule
-          image={require('./banner.jpg')}
+        {/* <UI.BannerModule
+          image={('./banner.jpg')}
           bigText="page.home.banner.description"
           linkText="page.home.banner.button"
           linkAs={<a href="https://company.govesta.co" />}
           dark
-        />
+        /> */}
         </Col>
       </Row>
     </Container>
