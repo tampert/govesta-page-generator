@@ -1,0 +1,80 @@
+[
+    {
+      "id": 1,
+      "name": "SeoMain",
+      "props" : [{
+        "name" : "title",
+        "value" : "title value",
+        "type" : "text"
+      }]
+    },
+    {
+      "id": 2,
+      "name": "banner",
+      "props" : [{
+        "name" : "image",
+        "value" : "image string",
+        "type" : "text"
+      },{
+        "name": "title", 
+        "value" : "subTitle value",
+        "type" : "text"
+      },{
+        "name": "smallText", 
+        "value" : "smallText value",
+        "type" : "text"
+      },{
+        "name": "description", 
+        "value" : "description value",
+        "type" : "text"
+      },{
+        "name": "linkText", 
+        "value" : "linkText value",
+        "type" : "text"
+      },{
+        "name": "link", 
+        "value" : "link value",
+        "type" : "text"
+      },{
+        "name": "bigText", 
+        "value" : "bigText value",
+        "type" : "text"
+      },{
+        "name": "linkAs", 
+        "value" : "linkAs value",
+        "type" : "text"
+      },{
+        "name": "full", 
+        "value" : "full value",
+        "type" : "text"
+      },{
+        "name": "dark", 
+        "value" : "subTitle value",
+        "type" : "text"
+      }]
+    },
+    {
+      "id": 3,
+      "name": "hero"
+    },
+    {
+      "id": 4,
+      "name": "locations"
+    },
+    {
+      "id": 5,
+      "name": "popular-cities"
+    },
+    {
+      "id": 6,
+      "name": "popular-subtypes"
+    },
+    {
+      "id": 7,
+      "name": "properties"
+    },
+    {
+      "id": 8,
+      "name": "types"
+    }
+]

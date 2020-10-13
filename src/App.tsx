@@ -3,20 +3,15 @@ import './App.css';
 // import 'normalize.css'
 import {Container, Row, Col, Form, Button, ListGroup } from 'react-bootstrap';
 import modulesData from './fixtures/modules.json'
-
+import sectionsData from './fixtures/sections.json'
 
 // service
 import { http } from './util/http';
 
 // Components
-// import * as UI from 'govesta-ui';
 const UI = require('govesta-ui');
 
-// interface IModule {
-//   id: string;
-//   name: string;
-//   props: any;
-// }
+
 
 interface Todo {
   userId: number;
@@ -54,7 +49,6 @@ function App() {
     } catch {
       response = [];
     } finally {
-      console.log(response.data);
       setPopularCities(response.data);
     }
   }
@@ -62,6 +56,8 @@ function App() {
   const [currentModule, setCurrentModule] = useState<string>('');
   const [selectedModules, setSeletedModules] = useState<any>([]);
 
+  const [currentSection, setCurrentSection] = useState<string>('');
+  const [selectedSections, setSeletedSections] = useState<any>([]);
    // API calls
   const [popularCities, setPopularCities] = useState<any>([
     {}, {}, {}, {}, {}
@@ -82,6 +78,25 @@ function App() {
     setSeletedModules((prevSelectedModules:any) => {
       return (
         [...prevSelectedModules].filter((_, i) => i !== id.key)
+      )
+    })
+  }
+
+
+  const onSectionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentSection(event.currentTarget.value);
+  }
+
+  const selectSection = (event: MouseEvent<HTMLButtonElement>) =>{
+    event.preventDefault();
+    const newSection:any = sectionsData.find((item) => item.name === currentSection)
+    setSeletedSections([...selectedSections, newSection])
+  }
+
+  const onDeleteSection = (id:any) => {
+    setSeletedModules((prevSelectedSections:any) => {
+      return (
+        [...prevSelectedSections].filter((_, i) => i !== id.key)
       )
     })
   }
@@ -108,6 +123,7 @@ function App() {
     console.log('use effect')
     // set currentModule
     setCurrentModule(modulesData[0].name)
+    setCurrentSection(sectionsData[0].name)
     loadPopularCities();
   },[])
 
@@ -161,17 +177,30 @@ function App() {
               )
             })}
               </ListGroup>
+              <Form.Group controlId="control-select" as={Row}>
+                <Form.Label column sm="2">sections</Form.Label>
+                <Col sm="8">
+                <Form.Control as="select" onChange={onSectionChange}>
+                    {sectionsData.map((section) => (
+                        <option key={section.id} value={section.name}>{section.name}</option>
+                    ))}
+                </Form.Control>
+                </Col>
+                <Col sm="2">
+                <Button onClick={selectSection}>add</Button>
+                </Col>
+              </Form.Group>
         </Form>
         </Col>
         <Col sm="8">
         the preview 
-        {/* <UI.BannerModule
-          image={('./banner.jpg')}
+        <UI.BannerModule
+          image={require('./banner.jpg')}
           bigText="page.home.banner.description"
           linkText="page.home.banner.button"
           linkAs={<a href="https://company.govesta.co" />}
           dark
-        /> */}
+        />
         </Col>
       </Row>
     </Container>
