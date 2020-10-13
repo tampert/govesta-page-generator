@@ -1,9 +1,15 @@
 import React, {MouseEvent,useState, useEffect} from 'react';
-import './App.css';
 // import 'normalize.css'
-import {Container, Row, Col, Form, Button, ListGroup } from 'react-bootstrap';
-import modulesData from './fixtures/modules.json'
+import modulesData from './fixtures/modules.json';
 
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import { Button } from '@material-ui/core';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 // service
 import { http } from './util/http';
@@ -12,18 +18,6 @@ import { http } from './util/http';
 // import * as UI from 'govesta-ui';
 const UI = require('govesta-ui');
 
-// interface IModule {
-//   id: string;
-//   name: string;
-//   props: any;
-// }
-
-interface Todo {
-  userId: number;
-  id: number;
-  title: string;
-  completed: boolean;
-}
 
 // interface Data {
 //   country: object;
@@ -43,9 +37,23 @@ interface Todo {
 //   translations: array;
 // }
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
+
 
 
 function App() {
+  const classes = useStyles();
 
   const loadPopularCities = async () => {
     let response ;
@@ -66,9 +74,10 @@ function App() {
   const [popularCities, setPopularCities] = useState<any>([
     {}, {}, {}, {}, {}
   ]);
-
+  
   // Form events
-  const onModuleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  
+  const onModuleChange = (event: any) => {
     setCurrentModule(event.currentTarget.value);
   }
 
@@ -107,7 +116,7 @@ function App() {
   useEffect(()=>{
     console.log('use effect')
     // set currentModule
-    setCurrentModule(modulesData[0].name)
+    setCurrentModule(modulesData[0].name+ "")
     loadPopularCities();
   },[])
 
@@ -116,65 +125,51 @@ function App() {
   },[popularCities])
 
   return (
-    <Container className="App" fluid>
-      <Row><Col>page generator</Col></Row>
-      <Row>
-        <Col sm="4">
-        <Form>
-          <Form.Group controlId="control-select" as={Row}>
-            <Form.Label column sm="2">modules</Form.Label>
-            <Col sm="8">
-            <Form.Control as="select" onChange={onModuleChange}>
+    <div className={classes.root}>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <h3>page generator</h3>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="demo-simple-select-label">Modules</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              onChange={onModuleChange}>
                 {modulesData.map((module) => (
-                    <option key={module.id} value={module.name}>{module.name}</option>
-                ))}
-            </Form.Control>
-            </Col>
-            <Col sm="2">
-             <Button onClick={selectModule}>add</Button>
-            </Col>
-          </Form.Group>
-          <ListGroup>
-              {selectedModules && selectedModules.map((module:any, key:number) =>{
-              return (
-                <ListGroup.Item key={key}>
-                <Row>
-                  <Col>{module.name}</Col>
-                  <Col className="text-right">
-                    <Button variant="primary" className="close" aria-label="Close" size="sm" onClick={() =>{onDeleteModule({key})}}>
-                      <span aria-hidden="true">&times;</span>
-                    </Button>
-                  </Col>
-                </Row>
-                    {module.props &&  module.props.map((prop:any, i:number) => {
-                      return (
-                        <Row key={i}>
-                          <Col>{prop.name}</Col>
-                          <Col><Form.Control type={prop.type} placeholder="" defaultValue={prop.value} /></Col>
-                        </Row>
-                      )
-                    })}
-                <Row>
-                  <Col className="text-right"><Button variant="primary" size="sm">Add</Button></Col>
-                </Row>
-                </ListGroup.Item>
-              )
-            })}
-              </ListGroup>
-        </Form>
-        </Col>
-        <Col sm="8">
-        the preview 
-        {/* <UI.BannerModule
-          image={('./banner.jpg')}
-          bigText="page.home.banner.description"
-          linkText="page.home.banner.button"
-          linkAs={<a href="https://company.govesta.co" />}
-          dark
-        /> */}
-        </Col>
-      </Row>
-    </Container>
+                        <option key={module.id} value={module.name}>{module.name}</option>
+                    ))}
+              </Select>
+              <Button color="secondary" variant="contained" onClick={selectModule}>add</Button>
+            </FormControl>
+            {/* <ListGroup>
+                {selectedModules && selectedModules.map((module:any, key:number) =>{
+                return (
+                  <ListGroup.Item key={key}>
+                  <Row>
+                    <Col>{module.name}</Col>
+                    <Col className="text-right">
+                      <Button variant="primary" className="close" aria-label="Close" size="sm" onClick={() =>{onDeleteModule({key})}}>
+                        <span aria-hidden="true">&times;</span>
+                      </Button>
+                    </Col>
+                  </Row>
+                      {module.props &&  module.props.map((prop:any, i:number) => {
+                        return (
+                          <Row key={i}>
+                            <Col>{prop.name}</Col>
+                            <Col><Form.Control type={prop.type} placeholder="" defaultValue={prop.value} /></Col>
+                          </Row>
+                        )
+                      })}
+                  <Row>
+                    <Col className="text-right"><Button variant="primary" size="sm">Add</Button></Col>
+                  </Row>
+                  </ListGroup.Item>
+                )
+              })} */}
+        </Grid>
+      </Grid>
+    </div>
   );
 }
 
