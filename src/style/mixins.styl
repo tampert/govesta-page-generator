@@ -1,0 +1,88 @@
+user-select(v=none) 
+    user-select v 
+    -webkit-user-select v
+
+pointer-events(v = none) 
+    pointer-events v
+    -webkit-pointer-events v
+
+transition(v) 
+    transition v
+    -webkit-transition v
+
+appearance(v=none) 
+    -webkit-appearance: v
+    appearance: v
+
+border-radius(v) 
+    border-radius v
+    -webkit-border-radius v
+
+box-shadow(v) 
+    box-shadow v
+    -webkit-box-shadow v
+
+transform(v) 
+    transform v
+    -webkit-transform v
+
+animation(v) 
+    animation v
+    -webkit-animation v
+
+flexbox(v1 = row, v2 = flex-start, v3 = center, v4 = nowrap)
+    display flex
+    flex-direction v1
+    justify-content v2
+    align-items v3
+    flex-wrap v4
+
+maxOneLine(maxWidth = 100%) 
+    max-width: maxWidth
+    text-overflow: ellipsis
+    white-space: nowrap
+    overflow: hidden
+
+keyframes(name) 
+    @keyframes name 
+        {block}
+
+responsive($type)
+    if $type==xxs
+        @media only screen and (max-width: 375px)
+            {block}
+    if $type==sm
+        @media only screen and (min-width: 768px) and (max-width: 992px)
+            {block}
+    else if $type==sm-all
+        @media only screen and (max-width: 992px)
+            {block}
+    else if $type==xs
+        @media only screen and (max-width: 767px)
+            {block}
+    else if $type==md
+        @media only screen and (min-width: 993px)
+            {block}
+    else if $type==md-between
+        @media only screen and (min-width: 992px) and (max-width: 1199px)
+            {block}
+    else if $type==md-all
+        @media only screen and (max-width: 1199px)
+            {block}
+    else if $type==lg
+        @media only screen and (min-width: 1200px)
+            {block}
+
+
+lineClamp($maxLines) 
+    text-overflow ellipsis
+    display -webkit-box
+    -webkit-box-orient vertical
+    -webkit-line-clamp $maxLines
+    overflow hidden
+
+placeholder()
+  &:-moz-placeholder 
+      {block}
+  &::-webkit-input-placeholder
+      {block}

@@ -6,7 +6,8 @@ import modulesData from './fixtures/modules.json'
 import sectionsData from './fixtures/sections.json'
 
 // service
-import { http } from './util/http';
+import { http } from './utils/http';
+import { ModuleTitle } from './utils/'
 
 // Components
 const UI = require('govesta-ui');
@@ -41,7 +42,18 @@ interface Todo {
 
 
 function App() {
+  // modules + sections
+  const [currentModule, setCurrentModule] = useState<string>('');
+  const [selectedModules, setSeletedModules] = useState<any>([]);
 
+  const [currentSection, setCurrentSection] = useState<string>('');
+  const [selectedSections, setSeletedSections] = useState<any>([]);
+   // API calls
+  const [popularCities, setPopularCities] = useState<any>([
+    {}, {}, {}, {}, {}
+  ]);
+
+  
   const loadPopularCities = async () => {
     let response ;
     try {
@@ -52,16 +64,7 @@ function App() {
       setPopularCities(response.data);
     }
   }
-  // modules + Settings
-  const [currentModule, setCurrentModule] = useState<string>('');
-  const [selectedModules, setSeletedModules] = useState<any>([]);
 
-  const [currentSection, setCurrentSection] = useState<string>('');
-  const [selectedSections, setSeletedSections] = useState<any>([]);
-   // API calls
-  const [popularCities, setPopularCities] = useState<any>([
-    {}, {}, {}, {}, {}
-  ]);
 
   // Form events
   const onModuleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -193,14 +196,14 @@ function App() {
         </Form>
         </Col>
         <Col sm="8">
-        the preview 
+        <ModuleTitle>UI.BannerModule</ModuleTitle>
         <UI.BannerModule
           image={require('./banner.jpg')}
           bigText="page.home.banner.description"
           linkText="page.home.banner.button"
           linkAs={<a href="https://company.govesta.co" />}
-          dark
-        />
+          />
+         
         </Col>
       </Row>
     </Container>
